@@ -1,25 +1,13 @@
 # The Unofficial Guide
 
-<!-- Replace this line with your name and which corpus you picked. -->
-
-> **This file is your submission.** Fill it in as you go — most sections get
-> written during the milestone that produces them, not at the end.
->
-> How the starter works, and every command you'll need, is in `RUNNING.md`.
-> Leave that file alone.
->
-> **Paste everything as text.** No screenshots, no video. A typed table gets
-> full credit; a picture of the same table gets none.
->
-> Delete these instruction blocks as you replace them. The `<!-- -->` comments
-> are notes to you and don't show up when the page renders — you can leave them
-> or remove them.
+Ismah Hassan - Campus Life
 
 ---
 
 # Unit 1
 
 ## What This Does
+This is a RAG system for campus life. The system answers questions like "When is the last day to drop a class?", "How to declare your major?", and other campus related questions. The answers are grounded in the relevant documents that are retrieved.
 
 <!-- Three or four sentences. Which corpus you picked, and the kinds of
      questions your system answers. Write it for someone who has never seen
@@ -135,9 +123,9 @@ after week two show as a W).
 
      Milestone 5. -->
 
-**1.**
+**1.** I used Claude to check my 2 criteria and see if they could be seen plainly or observed. I wrote "comprehensible on its own," for my 5th point, but Claude said it was too vague. I changed it to whether the chunk can be comprehensible on its own without other chunks' contexts.
 
-**2.**
+**2.** I used Claude to check if the cutoff wasn't working for my questions, but it clarified that the cutoff is for questions that are unrelated, not questions that are related but not answerable with relevant documents. So I kept the cutoff value the same because it worked for me.
 
 <!-- ── Stretch features ─────────────────────────────────────────────────────
      Doing one? Say so here BEFORE you start. A feature this README never
