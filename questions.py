@@ -28,7 +28,7 @@ QUESTIONS = [
     {"question": "", "expects": ""},
     {"question": "", "expects": ""},
     {"question": "", "expects": ""},
-]
+] 
 
 # Questions from a different world entirely. Your gate should refuse all five.
 #
