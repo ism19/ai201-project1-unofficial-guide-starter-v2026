@@ -26,6 +26,8 @@ contains the answer.
 <!-- e.g. "One of my questions is about a topic only two documents mention, so
      I expect that one to be hard." -->
 
+One of my questions is something I'm not sure the documents cover: "Can I change my major in my junior year?" So I'm leaving room for error.
+
 ---
 
 ## 2. Every answer names a source
@@ -35,6 +37,8 @@ Every answer the system produces names at least one source document.
 **Why this target:**
 <!-- Why all five and not four? What about your setup makes that achievable —
      or what would have to go wrong for it not to be? -->
+
+The way it's set up is so that the model must list the sources after answering the question. It would only fail if there were no documents relevant to answer the question.
 
 ---
 
@@ -53,9 +57,13 @@ in at least 4 of 5 tries.
 <!-- What did your distances look like when you set the cutoff in Milestone 4?
      Was there a clean gap, or did the two groups overlap? -->
 
+Because there was some overlap, I think the relevance gate will not be successful 100% of the time because it can't catch every out-of-scope question if it's right at the overlap.
+
 ---
 
 ## 4. Something about your chunks
+
+At least 3 out of 5 chunks contain enough information to be comprehensible on its own without context from other chunks.
 
 <!-- YOU WRITE THIS ONE.
 
@@ -69,15 +77,15 @@ in at least 4 of 5 tries.
        - "No chunk is shorter than 200 characters, since anything below that
           in my corpus turned out to be a heading with no content under it." -->
 
-
-
 **Why this target:**
 
-
+Because the chunks aren't that big, some chunks may not contain enough information on their own unless I make the chunk size bigger. 
 
 ---
 
 ## 5. Your choice
+
+4 out of 5 answers are completely grounded in the documents retrieved.
 
 <!-- YOU WRITE THIS ONE TOO.
 
@@ -91,7 +99,7 @@ in at least 4 of 5 tries.
 
 **Why this target:**
 
-
+I think 5 out of 5 is a high target for 0 hallucination at all because the model might add or assume something if no explicit directions not to are given in the prompt, even if it cites the documents.
 
 ---
 
