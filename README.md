@@ -29,8 +29,8 @@
 
 ## Chunking Strategy
 
-**Chunk size:**
-**Overlap:**
+**Chunk size: 250**
+**Overlap: 50**
 
 <!-- What about YOUR documents made you pick these numbers? Short posts and
      long sectioned guides don't want the same chunking, and "800 seemed
@@ -42,41 +42,54 @@
 
      Milestone 3. -->
 
+My documents run around 200 characters each, so a chunk size of 250 means most documents fit inside a single chunk without being split or cut off without finishing a thought. The 50
+overlap is there just in case there's a longer document.
+
+
 ## Sample Chunks
 
-<!-- Five chunks, pasted as text. Label each one and name the file it came from
-     AND the function that produced it — the grader checks your code against
-     what you claim here.
+======================================================================
+Chunk 1  |  source: thread_bike_commute.txt#0  |  produced by: chunker.py::fallback_split
+======================================================================
+THREAD: Is a bike worth it for a 20 minute walk commute?
 
-     `python app.py chunks -n 5` prints all three for you. Copy them straight
-     across.
+--- reply 1 (14 votes) ---
+Yeah. Cuts an 18 minute walk to about 6. The thing nobody mentions is storage — covered bike parking exists at three buildings and is full by 9am at all three.
 
-     Milestone 3. -->
+---
 
-**Chunk 1** — source: `` — produced by: ``
+======================================================================
+Chunk 2  |  source: thread_first_gen.txt#1  |  produced by: chunker.py::fallback_split
+======================================================================
+or it by name.
 
-```
-```
+--- reply 2 (41 votes) ---
+The thing I'd say: the unwritten rules are the hard part, not the coursework. Ask about the unwritten rules explicitly. People are happy to explain them and nobody volunteers them.
 
-**Chunk 2** — source: `` — produced by: ``
+--- reply 3 (16 votes) --
 
-```
-```
+======================================================================
+Chunk 3  |  source: thread_laptop_specs.txt#2  |  produced by: chunker.py::fallback_split
+======================================================================
+years on an 8GB machine and it was fine until the last project, at which point it very much wasn't. 16 is the answer.
 
-**Chunk 3** — source: `` — produced by: ``
+======================================================================
+Chunk 4  |  source: thread_parking.txt#0  |  produced by: chunker.py::fallback_split
+======================================================================
+THREAD: Worth getting a parking permit?
 
-```
-```
+--- reply 1 (15 votes) ---
+West lots sell out in about three days in August. East lot never sells out but it's a 12 minute walk, at which point you might as well have parked on the street.
 
-**Chunk 4** — source: `` — produced by: ``
+--- reply 2 (21 vot
 
-```
-```
+======================================================================
+Chunk 5  |  source: thread_roommate_conflict.txt#2  |  produced by: chunker.py::fallback_split
+======================================================================
+ous cases.
 
-**Chunk 5** — source: `` — produced by: ``
-
-```
-```
+--- reply 3 (33 votes) ---
+Write down specifics before the meeting. 'It's not working' is hard to act on; 'guests four nights a week past 2am' is not.
 
 ## Sample Answer
 
