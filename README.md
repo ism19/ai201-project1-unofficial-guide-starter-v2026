@@ -96,9 +96,11 @@ Write down specifics before the meeting. 'It's not working' is hard to act on; '
 <!-- One complete question and answer, pasted as text, with the source line
      visible. Milestone 4. -->
 
-**Question:**
+**Question:** When is the last day to drop a class without it being on my record?
 
-**Answer:**
+**Answer:** Based on the provided document, the last day to drop a course
+without it showing on your transcript is the end of the second week (drops
+after week two show as a W).
 
 ```
 ```
@@ -116,7 +118,11 @@ Write down specifics before the meeting. 'It's not working' is hard to act on; '
 
 | Question | In corpus? | Best distance |
 |---|---|---|
-|  |  |  |
+| Can I change my major if I'm a junior? | Yes | 0.595 |
+| When can I apply for graduation? | Yes | 0.526 |
+| Where are dining dollars accepted? | Yes | 0.380 |
+| When is the last day to drop a class without it being on my record? | Yes | 0.392 |
+| What are the meal plans available? | Yes | 0.517 |
 
 ## How I Used AI
 
