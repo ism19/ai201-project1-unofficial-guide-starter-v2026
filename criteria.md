@@ -61,9 +61,9 @@ Because there was some overlap, I think the relevance gate will not be successfu
 
 ---
 
-## 4. Something about your chunks
+## 4. At least 3 chunks are relevant by themselves
 
-At least 3 out of 5 chunks contain enough information to be comprehensible on its own without context from other chunks.
+For each question, at least 3 out of 5 chunks contain enough information to be comprehensible on its own without context from other chunks.
 
 <!-- YOU WRITE THIS ONE.
 
@@ -83,7 +83,7 @@ Because the chunks aren't that big, some chunks may not contain enough informati
 
 ---
 
-## 5. Your choice
+## 5. Answers are grounded
 
 4 out of 5 answers are completely grounded in the documents retrieved.
 

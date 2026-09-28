@@ -154,15 +154,101 @@ after week two show as a W).
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
+| 1. Retrieved chunk contains the answer | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 2. Every answer names a source | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 3. Gate stops out-of-corpus questions | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 4. At least 3 chunks are relevant by themselves | 5 of 5 | 3/5 | 3/5 | 3/5 | MISSED |
+| 5. Answers are grounded | 4 of 5 | 4/5 | 4/5 | 5/5 | MET |
 
 <!-- Underneath, paste the REAL output for each criterion from one of your
      runs — the actual text your system produced, not a description of it.
      Name the file and function that produced it. -->
+
+### Criterion 1: Retrieved chunk contains the answer
+
+Question: "How many credit hours do I need to graduate?" (run 1, best distance 0.3445)
+Produced by `store.py::search`, over chunks from `chunker.py::split_documents`.
+
+Sources retrieved: admin_graduation_requirements.txt, admin_pass_fail_option.txt, admin_transcript_requests.txt, advising_registration.txt
+
+The chunk that contained the answer, from `admin_graduation_requirements.txt`:
+
+```
+On the graduation requirements
+
+120 credit hours, a completed major, and the general education requirements. The one that trips people is the writing-intensive requirement: two courses, and they must be taken in different departments. Check this in y
+```
+
+### Criterion 2: Every answer names a source
+
+Question: "Does the health center take walk-ins? What time?" (run 1)
+Produced by `run_eval.py::main`, using `generate.py::answer_from_chunks`. File: `results/run_2026-09-27_2019_after.md`.
+
+```
+Yes, the health centre takes walk-ins from 8am to 11am (from health_center.txt).
+```
+
+### Criterion 3: The gate stops out-of-corpus questions
+
+Produced by `run_eval.py::check_out_of_scope`, cutoff 0.6. Refused 5 of 5.
+
+| Out-of-scope question | Best distance | Gate |
+|---|---|---|
+| What is the capital of Mongolia? | 0.825 | refused |
+| How do I change the oil in a diesel engine? | 0.815 | refused |
+| Who won the 1994 World Cup? | 0.845 | refused |
+| What is the recommended dosage of ibuprofen for a headache? | 0.832 | refused |
+| How do I write a for loop in Rust? | 0.854 | refused |
+
+### Criterion 4: Chunks are comprehensible on their own
+
+Produced by `chunker.py::split_documents`, printed with `python app.py ask "..." --show-prompt`.
+Chunks that were comprehensible, per question: 2/5, 3/5, 5/5, 4/5, 2/5. That is 3 of 5 questions with at least 3 comprehensible chunks.
+
+A chunk that passes (`health_center.txt`):
+
+```
+The health centre
+
+Walk-in hours are 8am to 11am; everything after that is by appointment and appointments run about a week out. If something is urgent, go at 8am and wait rather than booking.
+
+Counselling is separate, in the same building, and has i
+```
+
+A chunk that fails (`dining_verrill_street_grill_followup.txt`). It opens mid-word, so "it's a different building" has nothing to refer to:
+
+```
+sses, go before 11:45 and it's a different building entirely.
+
+Also worth saying: one register, so the queue is a single line no matter how busy. Nobody tells you this at orientation.
+```
+
+### Criterion 5: Answers are grounded
+
+Question: "When is the last day to drop a class without it being on my record?"
+Answers produced by `generate.py::answer_from_chunks`, via `run_eval.py::main`. File: `results/run_2026-09-27_2019_after.md`.
+
+The cited chunk (`admin_add_drop_deadline.txt`):
+
+```
+On the add/drop deadline
+
+You can add a course through the end of the second week. Dropping is a longer window — through the end of week six — but a drop after week two shows as a W on your transcript. Nothing anywhere on the registrar's site says th
+```
+
+Run 1 answer. It does not pass, because the chunk says the drop window runs through week six:
+
+```
+You can drop a course through the end of the second week; drops after week two will show as a W on your transcript. This information comes from `admin_add_drop_deadline.txt`.
+```
+
+Run 3 answer. It passes:
+
+```
+The last day to drop a class without a "W" appearing on your transcript is through the end of the second week, as drops after week two show as a W.
+
+Source: admin_add_drop_deadline.txt
+```
 
 ## Verdicts
 
