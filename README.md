@@ -127,6 +127,8 @@ after week two show as a W).
 
 **2.** I used Claude to check if the cutoff wasn't working for my questions, but it clarified that the cutoff is for questions that are unrelated, not questions that are related but not answerable with relevant documents. So I kept the cutoff value the same because it worked for me.
 
+**3.** Every question came back "fail" on my first run. I asked Claude why, and it pointed at my scorer. I found that four of my five expects said "no information," so I was grading refusals. I replaced them with questions the documents answer.
+
 <!-- ── Stretch features ─────────────────────────────────────────────────────
      Doing one? Say so here BEFORE you start. A feature this README never
      claims earns nothing.
@@ -359,9 +361,15 @@ chunk and ranked in the top 5.
 
      Milestone 5. -->
 
+**The library question still fails: criterion 1** "Does the library have a quiet floor?" failed all three runs after my change. Criterion 1 still shows MET only because my target is 4 of 5. I stopped because the milestone asked for one change measured properly, and my diagnosis was chunking. 
+
+
 ## What I'd Do Differently
 
 <!-- Knowing what you know now — which of your five criteria would you write
      differently, and why?
 
      Milestone 5. -->
+
+**Criterion 5.** I would change it to 5 of 5 because hallucination is the failure I care about most, and I'd keep it. 
+
