@@ -315,7 +315,7 @@ Retrieval and chunking weren't the cause. The chunk held all the right informati
 
 ## The Improvement
 
-**What I changed:**
+**What I changed:** 
 
 **Why I picked it:**
 
@@ -329,11 +329,11 @@ Retrieval and chunking weren't the cause. The chunk held all the right informati
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
+| 1. Retrieved chunk contains the answer | 4 of 5 | 4/5 | 4/5 | 4/5 | MET |
+| 2. Every answer names a source | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 3. Gate stops out-of-corpus questions | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 4. Chunks are comprehensible on their own | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 5. Answers are grounded | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
 
 **Did it help?**
 
@@ -343,6 +343,11 @@ Retrieval and chunking weren't the cause. The chunk held all the right informati
      tell.
 
      Milestone 4. -->
+
+My old chunker had 250 characters in every chunk and made 184 chunks, and some were very short. The new one split nothing: 88 documents became 88 chunks, and no chunk stopped or started in the middle of a sentence.
+anymore. Criterion 4 went from 3 of 5 questions to 5 of 5. However, criterion 1 dropped from 5/5 to 4/5. The whole study_library_hours.txt document is now one chunk with hours, reading week, and seating. Five 
+housing documents are retrieved now, the library document isn't retrieved, so the model says the documents don't cover the question. Before, the first 250 characters of that document were their own
+chunk and ranked in the top 5.
 
 ## What's Still Broken
 

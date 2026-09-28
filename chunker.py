@@ -24,6 +24,7 @@ your pipeline, not giving up.
 
 from dataclasses import dataclass
 
+import re
 import config
 from ingest import Document
 
@@ -80,24 +81,59 @@ def fallback_split(
     return chunks
 
 
+MAX_CHARS = 600
+
+
+def _split_sentences(text: str) -> list[str]:
+    return re.split(r"(?<=[.!?])\s+", text)
+
+
 def split_documents(documents: list[Document]) -> list[Chunk]:
-    """
-    Split documents into chunks. ⚠️ REPLACE THE BODY OF THIS IN MILESTONE 3.
+    """Split on blank lines, then pack paragraphs together up to MAX_CHARS.
+    A paragraph that is too long on its own is packed by sentence instead.
+    No chunk ever starts or ends mid-word."""
+    chunks: list[Chunk] = []
+    for doc in documents:
+        paragraphs = [p.strip() for p in re.split(r"\n\s*\n", doc.text) if p.strip()]
 
-    Right now it just calls the fallback. That is the plain, generic behaviour
-    the brief is talking about.
+        # 1. break any oversized paragraph into sentence-packed pieces
+        pieces: list[str] = []
+        for p in paragraphs:
+            if len(p) <= MAX_CHARS:
+                pieces.append(p)
+                continue
+            current = ""
+            for s in _split_sentences(p):
+                if current and len(current) + 1 + len(s) > MAX_CHARS:
+                    pieces.append(current)
+                    current = s
+                else:
+                    current = f"{current} {s}".strip()
+            if current:
+                pieces.append(current)
 
-    When you write your own strategy, set `produced_by` to
-    "chunker.py::split_documents" so your README's Sample Chunks section names
-    the right function. `app.py chunks` prints that string for you.
+        # 2. merge neighbouring pieces up to MAX_CHARS
+        merged: list[str] = []
+        current = ""
+        for piece in pieces:
+            if current and len(current) + 2 + len(piece) > MAX_CHARS:
+                merged.append(current)
+                current = piece
+            else:
+                current = f"{current}\n\n{piece}" if current else piece
+        if current:
+            merged.append(current)
 
-    Things worth thinking about before you write any code:
-      - Are your documents short posts or long guides?
-      - Is the useful information in one sentence, or spread over a paragraph?
-      - Would splitting on paragraph breaks keep more thoughts intact than
-        splitting on a character count?
-    """
-    return fallback_split(documents)
+        for i, text in enumerate(merged):
+            chunks.append(
+                Chunk(
+                    text=text,
+                    source=doc.source,
+                    index=i,
+                    produced_by="chunker.py::split_documents",
+                )
+            )
+    return chunks
 
 
 def describe(chunks: list[Chunk]) -> str:
