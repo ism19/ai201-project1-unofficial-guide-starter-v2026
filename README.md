@@ -263,11 +263,11 @@ Source: admin_add_drop_deadline.txt
 
 | # | Criterion | Verdict | How I decided |
 |---|---|---|---|
-| 1 |  |  |  |
-| 2 |  |  |  |
-| 3 |  |  |  |
-| 4 |  |  |  |
-| 5 |  |  |  |
+| 1 | Retrieved chunk contains the answer | MET | for each run, out of all the chunks at least one contained the answer |
+| 2 | Every answer names a source | MET | every single run for every question named a source |
+| 3 | Gate stops out-of-corpus questions | MET | the gate stopped all irrelevant questions for each run |
+| 4 | At least 3 chunks are relevant by themselves | MISSED |  |
+| 5 | Answers are grounded | MET |  |
 
 ## Diagnoses
 
