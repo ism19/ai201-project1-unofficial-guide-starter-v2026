@@ -266,8 +266,10 @@ Source: admin_add_drop_deadline.txt
 | 1 | Retrieved chunk contains the answer | MET | for each run, out of all the chunks at least one contained the answer |
 | 2 | Every answer names a source | MET | every single run for every question named a source |
 | 3 | Gate stops out-of-corpus questions | MET | the gate stopped all irrelevant questions for each run |
-| 4 | At least 3 chunks are relevant by themselves | MISSED |  |
-| 5 | Answers are grounded | MET |  |
+| 4 | At least 3 chunks are relevant by themselves | MISSED | 3 chunks were comprehensible by themselves for only 3 questions, only 2/5 chunks were comprehensible for the other 2 questions |
+| 5 | Answers are grounded | MET | For two runs, 4/5 answers were grounded, and for the last run, 5/5 answers were grounded |
+I revised criterion 5 to require 5/5 answers to be grounded because hallucination shouldn't be tolerated, as it's misinformation. With the revision, my criterion would be missed, but it's a better evaluation standard.
+
 
 ## Diagnoses
 
@@ -288,6 +290,28 @@ Source: admin_add_drop_deadline.txt
      low, and which one you'd tighten and to what.
 
      Milestone 3. -->
+
+### Criterion 4: chunks that stand on their own (MISSED, 3 of 5 questions)
+
+**Stage: chunking.** My chunker cuts at a fixed 250 characters with 50 overlap and ignores word and sentence boundaries. Any document longer than 250 characters gets split wherever the count lands, so every chunk after the first in a document opens in the middle of a word or sentence. Examples from my output:
+
+- `dining_verrill_street_grill_followup.txt` opens "sses, go before 11:45 and it's a different building entirely." "It's" has nothing to refer to, and the chunk doesn't say which restaurant it's about.
+- `advising_registration.txt` opens "ed by credit hours, same as the housing lottery."
+- `admin_pass_fail_option.txt` produced a chunk that is only "C- or better. Two per year, maximum eight across a degree." Two of what is lost.
+
+The first chunk of a document always starts with its title, and those were the ones that passed. My library question got 5 of 5 because all five retrieved chunks were first chunks.
+
+My Milestone 3 reasoning assumed my documents were about 200 characters, so most would fit in one chunk. The graduation, pass/fail, and add/drop documents are longer than 250, and they are the ones that got split.
+
+**Secondary cause, retrieval.** The same results came back for unrelated questions. `admin_transcript_requests.txt` and `advising_registration.txt` showed up for both the credit hours and study abroad questions, and dining chunks filled the health center results. When only one or two documents really match a question, the remaining three or four get filled with whatever is nearest. The gate only looks at the best distance. 
+
+**Pattern:** this is one problem, the chunker cuts without regard for word boundaries. The answers were still correct on every question because the chunk that mattered was always a clean first chunk.
+
+### Criterion 5: grounded answers (drop-deadline question)
+
+**Stage: generation.** In runs 1 and 2 of "When is the last day to drop a class without it being on my record?", the model wrote that you can drop through the end of the second week. The retrieved chunk from `admin_add_drop_deadline.txt` says the add deadline is the end of week two, that dropping runs through week six, and that a drop after week two shows as a W. The model combined the add deadline and the drop window under one category. Its final conclusion (week two is the last day with no W) was right, but the sentence it used to get there isn't in the source. Run 3 stated it correctly.
+
+Retrieval and chunking weren't the cause. The chunk held all the right information, so this is a model error. It happened on one question, where two similar rules were together.
 
 ## The Improvement
 
